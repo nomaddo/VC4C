@@ -6,6 +6,7 @@
 
 #include <cstdlib>
 #include <fstream>
+#include <tuple>
 
 #include "cpptest.h"
 #include "cpptest-main.h"
@@ -67,6 +68,12 @@ int main(int argc, char** argv)
     Test::registerSuite(newFastRegressionTest, "fast-regressions", "Runs regression test-cases marked as fast", false);
     Test::registerSuite(Test::newInstance<TestEmulator>, "test-emulator", "Runs selected code-samples through the emulator");
     Test::registerSuite(Test::newInstance<TestStdlib>, "test-stdlib", "Runs most of the VC4CL std-lib functions in emulator");
+
+    for (auto tuple : kernelList)
+    {
+        Test::registerSuite(RegressionTest(vc4c::Frontend::DEFAULT), "--" + tuple[0]
+    }
+
 
     return Test::runSuites(argc, argv);
 }
