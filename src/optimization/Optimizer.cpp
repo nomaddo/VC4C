@@ -87,7 +87,7 @@ static bool generalOptimization(const Module& module, Method& method, const Conf
     using pass = std::function<bool(const Module& module, Method& method, const Configuration& config)>;
     using step =
         std::function<bool(const Module& module, Method& method, InstructionWalker& it, const Configuration& config)>;
-    static std::vector<pass> PASS = {translateToMove, eliminateRedundantMoves, eliminateRedundantBitOp, propagateMoves};
+    static std::vector<pass> PASS = {translateToMove, eliminateRedundantMoves, eliminateRedundantBitOp, propagateMoves, lifeRangeSplit};
     static std::vector<step> SINGLE = {calculateConstantInstruction, eliminateUselessInstruction};
     bool moved;
 

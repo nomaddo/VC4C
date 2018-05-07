@@ -713,3 +713,39 @@ bool optimizations::eliminateRedundantBitOp(const Module& module, Method& method
 
     return replaced;
 }
+
+bool optimizations::lifeRangeSplit(const Module& module, Method& method, const Configuration& config)
+{
+    if (! config.additionalOptions.lifeRangeSplit)
+        return false;
+
+    bool replaced = false;
+    for (auto & bb : method)
+    {
+        auto it = bb.begin();
+        while (it.isEndOfBlock())
+        {
+            if (it->getOutput().has_value() && it->getOutput().value().valueType == ValueType::LOCAL)
+            {
+                auto output = it->getOutput().value();
+                for (auto arg : it->getArguments())
+                {
+                    if (output == arg && method.isLocallyLimited(it, output.local, 100))
+                    {
+                        auto newOutput = method.addNewLocal(output.local->type, output.local->name, "_");
+                        it->setOutput(newOutput);
+                        if (! it.isEndOfMethod())
+                            it.nextInBlock()->replaceLocal(output.local,  newOutput, LocalUse::Type::BOTH);
+                        replaced = true;
+
+                        logging::debug() << "lifeRangeSplit: from " << output.local->name << " to " << newOutput.local->name;
+                    }
+                }
+            }
+
+            it.nextInBlock();
+        }
+    }
+
+    return replaced;
+}

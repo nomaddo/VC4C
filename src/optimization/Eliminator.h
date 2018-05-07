@@ -156,6 +156,8 @@ namespace vc4c
          * iadd x, a, y => this `a` cannot be replaced
          */
         bool propagateMoves(const Module& module, Method& method, const Configuration& config);
+
+        bool lifeRangeSplit(const Module &module, Method &method, const Configuration &config);
     } // namespace optimizations
 } // namespace vc4c
 #endif /* ELIMINATOR_H */

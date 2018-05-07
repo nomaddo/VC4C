@@ -90,8 +90,18 @@ bool tools::parseConfigurationParameter(Configuration& config, const std::string
         config.optimizationLevel = OptimizationLevel::FULL;
         return true;
     }
+    // optimizations in general-purpose optimization
+    if(arg == "--flife-range-split") {
+        config.additionalOptions.lifeRangeSplit = true;
+        return true;
+    }
+    if(arg == "--fno-life-range-split") {
+        config.additionalOptions.lifeRangeSplit = false;
+        return true;
+    }
 
-    std::string passName;
+
+            std::string passName;
     if(arg.find("--fno-") == 0)
     {
         passName = arg.substr(std::string("--fno-").size());

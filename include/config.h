@@ -140,6 +140,8 @@ namespace vc4c
          * NOTE: This optimization is not enabled by default because it is incomplete.
          */
         int moveConstantsDepth = -1;
+
+        bool lifeRangeSplit = true;
     };
 
     /*
