@@ -305,7 +305,7 @@ namespace vc4c
         /*
          * Executes the predicate for all incoming edges, until it becomes false
          */
-        void forAllIncomingEdges(const std::function<bool(NodeType&, EdgeType&)>& predicate)
+        void forAllIncomingEdges(std::function<bool(NodeType&, EdgeType&)>& predicate)
         {
             static_assert(Direction != Directionality::UNDIRECTED, "Only directed graphs have incoming edges!");
             for(auto& edge : edges)

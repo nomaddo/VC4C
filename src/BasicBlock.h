@@ -75,6 +75,11 @@ namespace vc4c
          */
         std::size_t size() const;
 
+        /*
+         * Remove all instructions except label
+         */
+        void reset();
+
         /*!
          * Checks if all usages of this local are within a certain range from the current instruction within a single
          * basic block

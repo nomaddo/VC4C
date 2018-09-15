@@ -767,12 +767,14 @@ namespace vc4c
      * The Value representing the r5 rotation offset register
      */
     const Value ROTATION_REGISTER(REG_ACC5, TYPE_INT8);
-
-    template <>
-    struct hash<Value> : public std::hash<std::string>
-    {
-        size_t operator()(const Value& val) const noexcept;
-    };
 } /* namespace vc4c */
+
+
+namespace std {
+    template<>
+    struct hash<vc4c::Value> : public std::hash<std::string> {
+        size_t operator()(const vc4c::Value &val) const noexcept;
+    };
+}
 
 #endif /* VALUES_H */

@@ -263,3 +263,11 @@ void BasicBlock::dumpInstructions() const
         });
     logging::debug() << "Block end ----" << logging::endl;
 }
+
+void BasicBlock::reset() {
+    auto walker = this->begin().nextInBlock();
+    while(walker != this->end())
+    {
+        walker.erase();
+    }
+}

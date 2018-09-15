@@ -768,7 +768,7 @@ Value Value::createZeroInitializer(const DataType& type)
     return val;
 }
 
-std::size_t vc4c::hash<vc4c::Value>::operator()(vc4c::Value const& val) const noexcept
+std::size_t std::hash<vc4c::Value>::operator()(vc4c::Value const& val) const noexcept
 {
     return std::hash<std::string>::operator()(val.to_string());
 }
